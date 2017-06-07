@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieTableViewCell" rowHeight="150" id="KGk-i7-Jjw" customClass="MovieTableViewCell" customModule="Movierama" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="150"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cAD-2U-p6t">
+                        <rect key="frame" x="8" y="10" width="128" height="128"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="128" id="ORk-XQ-4RZ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkL-PJ-ZDR">
+                        <rect key="frame" x="138" y="10" width="256" height="130"/>
+                        <accessibility key="accessibilityConfiguration" identifier="title"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="tkL-PJ-ZDR" firstAttribute="leading" secondItem="cAD-2U-p6t" secondAttribute="trailing" constant="2" id="6Uv-FE-Wkr"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="tkL-PJ-ZDR" secondAttribute="trailing" constant="-2" id="HSr-Zj-Jc0"/>
+                    <constraint firstItem="tkL-PJ-ZDR" firstAttribute="top" secondItem="cAD-2U-p6t" secondAttribute="top" id="Mk5-cy-Y63"/>
+                    <constraint firstItem="tkL-PJ-ZDR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UhT-Zo-lbh"/>
+                    <constraint firstItem="cAD-2U-p6t" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Y2S-Ut-aho"/>
+                    <constraint firstItem="cAD-2U-p6t" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="ehi-vT-MN2"/>
+                    <constraint firstItem="cAD-2U-p6t" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="rmx-pY-nSC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="moviePoster" destination="cAD-2U-p6t" id="iqy-D1-hYV"/>
+                <outlet property="movieTitle" destination="tkL-PJ-ZDR" id="F8Q-Rk-hWI"/>
+            </connections>
+            <point key="canvasLocation" x="65" y="105"/>
+        </tableViewCell>
+    </objects>
+</document>
