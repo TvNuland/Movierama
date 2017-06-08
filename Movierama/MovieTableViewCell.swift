@@ -25,4 +25,9 @@ class MovieTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func setDataForTableCell(movie: Movie) {
+        self.movieTitle.text = movie.title
+        self.moviePoster.image = movie.posterImage
+    }
+
 }
