@@ -15,47 +15,86 @@ class MovieStore {
         return URLSession(configuration: config)
     }()
     
-    private func processMoviesRequest(data: Data?, error: Error?) -> [Movie] {
-        guard let jsonData = data else {
-            print("Error processMoviesRequest")
-            return []
-        }
-        return OMDbAPI.movies(fromJSON: jsonData)
+    private func processMoviesRequest(data: Data?) throws -> [Movie]  {
+        guard let jsonData = data
+            else {throw MovieError.jsonData(details: data?.description ?? "No Data")}
+        return try OMDbAPI.movies(fromJSON: jsonData)
     }
-    
-    func searchRequestedMovies(forMovie: String, completion: @escaping ([Movie]) -> Void) {
-        
+
+    func searchRequestedMovie(forMovie: String, completion: @escaping (_ inner: () throws -> [Movie]) -> Void) -> Void {
         let url = OMDbAPI.makeSearchURL(forMovie: forMovie)
         let request = URLRequest(url: url)
         let task = session.dataTask(with: request) {
             (data, response, error) -> Void in
-            let result = self.processMoviesRequest(data: data, error: error)
-            OperationQueue.main.addOperation {
-                completion(result)
-           }
-        }
-        task.resume()
-    }
-    
-    private func processImageRequest(data: Data?, error: Error?) -> UIImage? {
-        guard let posterData = data,
-            let image = UIImage(data: posterData) else {
-                print("Error processImageRequest")
-                return nil
-        }
-        return image
-    }
-    
-    func loadRequestedImage(forPoster: String, completion: @escaping (UIImage) -> Void) {
-        let url = URL(string: forPoster)
-        let request = URLRequest(url: url!)
-        let task = session.dataTask(with: request) {
-            (data, response, error) -> Void in
-            let result = self.processImageRequest(data: data, error: error)
-            OperationQueue.main.addOperation {
-                completion(result!)
+            do {
+                let movies = try self.processMoviesRequest(data: data)
+                OperationQueue.main.addOperation {
+                    completion({return movies})
+                }
+            } catch {completion({throw MovieError.jsonData(details: "movieTask")})
             }
         }
         task.resume()
+    }
+    
+//    func searchRequestedMovie(forMovie: String, completion: @escaping ([Movie]) -> Void)  {
+//        let url = OMDbAPI.makeSearchURL(forMovie: forMovie)
+//        let request = URLRequest(url: url)
+//        movieTask(request: request) {(inner: () throws -> ([Movie])) -> Void in
+//            try inner()
+//        }
+//    }
+//
+//    func movieTask(request: URLRequest, completion: @escaping (_ inner: () throws -> [Movie]) -> Void) -> Void {
+//        let task = session.dataTask(with: request) {
+//            (data, response, error) -> Void in
+//            do {
+//                let movies = try self.processMoviesRequest(data: data)
+//                OperationQueue.main.addOperation {
+//                    completion({return movies})
+//                }
+//            } catch {completion({throw MovieError.jsonData(details: "movieTask")})
+//            }
+//        }
+//        task.resume()
+//    }
+    
+//    func searchRequestedMovie(forMovie: String, completion: @escaping ([Movie]) -> Void) throws {
+//        let url = OMDbAPI.makeSearchURL(forMovie: forMovie)
+//        let request = URLRequest(url: url)
+//        let task = try session.dataTask(with: request) {
+//            (data, response, error) -> Void in
+//            let movies = try self.processMoviesRequest(data: data)
+//            OperationQueue.main.addOperation {
+//                completion(movies)
+//            }
+//        }
+//        task.resume()
+//    }
+
+    private func processImageRequest(data: Data?) -> UIImage {
+        if let posterData = data,
+            let image = UIImage(data: posterData) {
+            return image
+        }
+        else {
+            return #imageLiteral(resourceName: "No Poster")
+        }
+    }
+    
+    func loadRequestedImage(forPoster: String, completion: @escaping (UIImage) -> Void) {
+        if let url = URL(string: forPoster) {
+            let request = URLRequest(url: url)
+            let task = session.dataTask(with: request) {
+                (data, response, error) -> Void in
+                let image: UIImage = self.processImageRequest(data: data)
+                OperationQueue.main.addOperation {
+                    completion(image)
+                }
+            }
+            task.resume()
+        } else {
+            completion(#imageLiteral(resourceName: "No Poster"))
+        }
     }
 }

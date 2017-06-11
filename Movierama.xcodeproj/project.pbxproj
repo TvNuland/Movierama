@@ -19,6 +19,8 @@
 		E63AE1CD1EE80EE7006CE796 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63AE1CB1EE80EE7006CE796 /* MovieTableViewCell.swift */; };
 		E63AE1CE1EE80EE7006CE796 /* MovieTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E63AE1CC1EE80EE7006CE796 /* MovieTableViewCell.xib */; };
 		E63AE1D01EE81588006CE796 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63AE1CF1EE81588006CE796 /* TableViewController.swift */; };
+		E660D7A81EE96DEA00239B0E /* TableViewControllerSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660D7A71EE96DEA00239B0E /* TableViewControllerSearch.swift */; };
+		E660D7AA1EEA9B1E00239B0E /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660D7A91EEA9B1E00239B0E /* ErrorHandling.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		E63AE1CB1EE80EE7006CE796 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		E63AE1CC1EE80EE7006CE796 /* MovieTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieTableViewCell.xib; sourceTree = "<group>"; };
 		E63AE1CF1EE81588006CE796 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		E660D7A71EE96DEA00239B0E /* TableViewControllerSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerSearch.swift; sourceTree = "<group>"; };
+		E660D7A91EEA9B1E00239B0E /* ErrorHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,12 +112,14 @@
 			isa = PBXGroup;
 			children = (
 				E6342E221EE6A41900E5758D /* Main.storyboard */,
+				E660D7A71EE96DEA00239B0E /* TableViewControllerSearch.swift */,
 				E63AE1CF1EE81588006CE796 /* TableViewController.swift */,
 				E63AE1CB1EE80EE7006CE796 /* MovieTableViewCell.swift */,
 				E63AE1CC1EE80EE7006CE796 /* MovieTableViewCell.xib */,
 				E63AE1B21EE6A8B0006CE796 /* OMDbAPI.swift */,
 				E63AE1C71EE6E020006CE796 /* MovieStore.swift */,
 				E63AE1C91EE6FDAC006CE796 /* Movie.swift */,
+				E660D7A91EEA9B1E00239B0E /* ErrorHandling.swift */,
 				E6342E1E1EE6A41900E5758D /* AppDelegate.swift */,
 				E6342E251EE6A41900E5758D /* Assets.xcassets */,
 				E6342E271EE6A41900E5758D /* LaunchScreen.storyboard */,
@@ -283,7 +289,9 @@
 				E6342E1F1EE6A41900E5758D /* AppDelegate.swift in Sources */,
 				E63AE1CD1EE80EE7006CE796 /* MovieTableViewCell.swift in Sources */,
 				E63AE1B31EE6A8B0006CE796 /* OMDbAPI.swift in Sources */,
+				E660D7AA1EEA9B1E00239B0E /* ErrorHandling.swift in Sources */,
 				E63AE1CA1EE6FDAC006CE796 /* Movie.swift in Sources */,
+				E660D7A81EE96DEA00239B0E /* TableViewControllerSearch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

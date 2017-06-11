@@ -11,14 +11,57 @@ import UIKit
 class TableViewController: UITableViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
+    var currentSearchText: String = ""
+    
+    //    var detailMovie: DetailMovie?
     
     var store: MovieStore!
     var movies: [Movie] = []
-//    {
-//        didSet {
-//            self.tableView.reloadData()
-//        }
-//    }
+    //    {
+    //        didSet {
+    //            self.tableView.reloadData()
+    //        }
+    //    }
+    
+    func searchMovies(forMovie: String) {
+        store.searchRequestedMovie(forMovie: forMovie) {
+            (inner: () throws -> [Movie]) -> Void in
+            do {
+                self.movies = try inner()
+                self.iterateMoviesFound(moviesFound: self.movies)
+            } catch MovieError.jsonData(let details) {
+                print("Error in jsonData \(details)")
+            } catch MovieError.jsonSerialization(let details) {
+                print("Error in jsonSerialization \(details)")
+            } catch MovieError.jsonFormat(let details) {
+                print("Error in jsonFormat \(details)")
+            } catch MovieError.omdbRequest(let details) {
+                print("Error in omdbRequest \(details)")
+            } catch {
+                print("Unknown Error")
+            }
+        }
+    }
+    
+    func iterateMoviesFound(moviesFound: [Movie]) {
+        for movie in moviesFound {
+            if movie.poster != "N/A" {
+                loadImage(forMovie: movie)
+            } else {
+                movie.posterImage = #imageLiteral(resourceName: "No Poster")
+                self.tableView.reloadData()
+            }
+            self.movies.append(movie)
+        }
+    }
+    
+    func loadImage(forMovie: Movie) {
+        store.loadRequestedImage(forPoster: forMovie.poster) {
+            (image) -> Void in
+            forMovie.posterImage = image
+            self.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,33 +69,12 @@ class TableViewController: UITableViewController {
         let nib = UINib(nibName: "MovieTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "MovieTableViewCell")
         
-        
-        store.searchRequestedMovies(forMovie: "Jaws") {
-            (moviesFound) -> Void in
-            for movie in moviesFound {
-                if movie.poster != "N/A" {
-                    self.store.loadRequestedImage(forPoster: movie.poster) {
-                        (image) -> Void in
-                        movie.posterImage = image
-                        self.tableView.reloadData()
-                    }
-                }
-                self.movies.append(movie)
- //               self.tableView.reloadData()
-                //                print(movie.title, movie.imdbID, movie.poster, movie.posterImage?.size)
-            }
-//            for movie in self.movies {
-//                print(movie.title, movie.imdbID, movie.poster, movie.posterImage ?? nil)
-//            }
-        }
-        
-        
-        //        for movie in movies {
-        //            store.loadRequestedImage(forPoster: movie.poster) {
-        //                (image) -> Void in
-        //                movie.posterImage = image
-        //            }
-        //        }
+        searchController.accessibilityLabel = "search"
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.searchBar.delegate = self
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -82,7 +104,7 @@ class TableViewController: UITableViewController {
         let cell: MovieTableViewCell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
         let currentMovie = movies[indexPath.row]
         cell.setDataForTableCell(movie: currentMovie)
-        print(currentMovie.title, currentMovie.imdbID, currentMovie.poster, currentMovie.posterImage ?? nil)
+        //        print(currentMovie.title, currentMovie.imdbID, currentMovie.poster, currentMovie.posterImage ?? nil)
         return cell
     }
     
