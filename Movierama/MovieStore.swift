@@ -37,28 +37,6 @@ class MovieStore {
         task.resume()
     }
     
-//    func searchRequestedMovie(forMovie: String, completion: @escaping ([Movie]) -> Void)  {
-//        let url = OMDbAPI.makeSearchURL(forMovie: forMovie)
-//        let request = URLRequest(url: url)
-//        movieTask(request: request) {(inner: () throws -> ([Movie])) -> Void in
-//            try inner()
-//        }
-//    }
-//
-//    func movieTask(request: URLRequest, completion: @escaping (_ inner: () throws -> [Movie]) -> Void) -> Void {
-//        let task = session.dataTask(with: request) {
-//            (data, response, error) -> Void in
-//            do {
-//                let movies = try self.processMoviesRequest(data: data)
-//                OperationQueue.main.addOperation {
-//                    completion({return movies})
-//                }
-//            } catch {completion({throw MovieError.jsonData(details: "movieTask")})
-//            }
-//        }
-//        task.resume()
-//    }
-    
 //    func searchRequestedMovie(forMovie: String, completion: @escaping ([Movie]) -> Void) throws {
 //        let url = OMDbAPI.makeSearchURL(forMovie: forMovie)
 //        let request = URLRequest(url: url)

@@ -17,6 +17,9 @@ class TableViewController: UITableViewController {
     
     var store: MovieStore!
     var movies: [Movie] = []
+    var currentMovie: Movie!
+
+    
     //    {
     //        didSet {
     //            self.tableView.reloadData()
@@ -162,5 +165,33 @@ class TableViewController: UITableViewController {
      // Pass the selected object to the new view controller.
      }
      */
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detailTableView" {
+            let detailTableView = segue.destination as! DetailTableViewController
+            detailTableView.currentMovie = currentMovie
+        }
+    }
+    
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        print("resign")
+//        textField.resignFirstResponder()
+//        return true
+//    }
+    
+    /*
+     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+     return tableView.rowHeight
+     }
+     */
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        currentMovie = movies[indexPath.row]
+        self.performSegue(withIdentifier: "detailTableView", sender: self)
+    }
+
     
 }

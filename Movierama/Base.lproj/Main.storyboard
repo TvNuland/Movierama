@@ -23,10 +23,31 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Hde-3l-hAK"/>
+                    <connections>
+                        <segue destination="osi-tV-biK" kind="show" identifier="detailTableView" id="GeX-dY-fMG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8f6-I0-7cX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1104.8" y="-562.66866566716647"/>
+        </scene>
+        <!--Detail Table View Controller-->
+        <scene sceneID="gqf-aN-M4M">
+            <objects>
+                <tableViewController id="osi-tV-biK" userLabel="Detail Table View Controller" customClass="DetailTableViewController" customModule="Movierama" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="mCm-ED-ggG" userLabel="Detail Table View">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="osi-tV-biK" id="v9c-xW-Ucd"/>
+                            <outlet property="delegate" destination="osi-tV-biK" id="K5g-8u-Ewz"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GZ1-bD-bCB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2006" y="-563"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fxs-1K-GTv">
