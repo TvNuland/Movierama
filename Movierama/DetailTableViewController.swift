@@ -16,8 +16,10 @@ class DetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: "DetailTableViewCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "DetailTableViewCell")
+        let nib1 = UINib(nibName: "Detail1TableViewCell", bundle: nil)
+        self.tableView.register(nib1, forCellReuseIdentifier: "Detail1TableViewCell")
+        let nib2 = UINib(nibName: "Detail2TableViewCell", bundle: nil)
+        self.tableView.register(nib2, forCellReuseIdentifier: "Detail2TableViewCell")
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 350
@@ -35,12 +37,23 @@ class DetailTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: DetailTableViewCell = tableView.dequeueReusableCell(withIdentifier: "DetailTableViewCell", for: indexPath) as! DetailTableViewCell
-        cell.setDataForTableCell(currentMovie: currentMovie!)
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell1: Detail1TableViewCell = tableView.dequeueReusableCell(withIdentifier: "Detail1TableViewCell", for: indexPath) as! Detail1TableViewCell
+            cell1.setDataForTableCell(currentMovie: currentMovie!)
+            return cell1
+        case 1:
+            let cell2: Detail2TableViewCell = tableView.dequeueReusableCell(withIdentifier: "Detail2TableViewCell", for: indexPath) as! Detail2TableViewCell
+            cell2.setDataForTableCell(currentMovie: currentMovie!)
+            return cell2
+        default:
+            print("DetailTableViewController cellForRowAt")
+            let cell9 = UITableViewCell()
+            return cell9
+        }
     }
 }
