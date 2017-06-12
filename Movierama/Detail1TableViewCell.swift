@@ -1,33 +1,28 @@
 //
-//  MovieTableViewCell.swift
+//  Detail1TableViewCell.swift
 //  Movierama
 //
-//  Created by Ton on 2017-06-07.
+//  Created by Ton on 2017-05-29.
 //  Copyright © 2017 Ton van Nuland. All rights reserved.
 //
 
 import UIKit
 
-class MovieTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var moviePoster: UIImageView!
+class Detail1TableViewCell: UITableViewCell {
     
-    @IBOutlet weak var movieTitle: UILabel!
+    @IBOutlet weak var movieImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
-    func setDataForTableCell(movie: Movie) {
-        self.movieTitle.text = movie.title
-        self.moviePoster.image = movie.posterImage
+    func setDataForTableCell(currentMovie: Movie) {
+        movieImage.image = currentMovie.posterImage
     }
-
 }

@@ -30,52 +30,42 @@ struct OMDbAPI {
         return MakeURL(parameters: [imdbIDKey: forIMDbID])
     }
     
-    static func movies(fromJSON data: Data) -> [Movie] {
-        do {
-            let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-            
-            guard
-                let jsonDictionary = jsonObject as? [AnyHashable:Any],
-                let moviesArray = jsonDictionary["Search"] as? NSArray
-//                let moviesArray = movies["Title"] as? [[String:Any]]
-                else {
-                    print("JSON structure error")
-                    return []
-            }
-            
-            var finalMovies = [Movie]()
-            
-            for movieJSON in moviesArray {
-                if let movie = movie(fromJSON: movieJSON as! [String : Any]) {
-                    finalMovies.append(movie)
-                }
-            }
-            
-            if finalMovies.isEmpty && moviesArray != [] {
-                print("Error JSON format error")
-                return []
-            }
-            
-            return finalMovies
-        } catch let error {
-            print("Error JSONSerialization: \(error)")
-            return []
-        }
+    static func movies(fromJSON data: Data) throws -> [Movie] {
+        let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+        guard let jsonDictionary = jsonObject as? [AnyHashable:Any]
+            else {throw MovieError.jsonFormat(details: "jsonDictionary")}
+        let finalMovies = try parseResults(searchDict: jsonDictionary as NSDictionary)
+        return finalMovies
     }
     
-    private static func movie(fromJSON json: [String : Any]) -> Movie? {
+    private static func parseResults(searchDict: NSDictionary) throws -> [Movie] {
+        guard let responseMsg = searchDict["Response"] as? String
+            else {throw MovieError.jsonFormat(details: "Response keyword not found")}
+        if responseMsg == "False" {
+            let errorMsg = searchDict["Error"] as? String
+            throw MovieError.jsonFormat(details: errorMsg ?? "OMDB response False")
+        }
+        guard let moviesArray = searchDict["Search"] as? NSArray
+            else {throw MovieError.jsonFormat(details: "Search keyword not found")}
+        var finalMovies = [Movie]()
+        for movieJSON in moviesArray {
+            let movie = try parseMovie(fromJSON: movieJSON as! [String : Any])
+            finalMovies.append(movie)
+        }
+        return finalMovies
+    }
+    
+    private static func parseMovie(fromJSON json: [String : Any]) throws -> Movie {
         guard
             let imdbID = json["imdbID"] as? String,
             let title = json["Title"] as? String,
             let year = json["Year"] as? String,
             let poster = json["Poster"] as? String
-             else {
-                return nil
-        }
+            else {throw MovieError.jsonFormat(details: "Movie parameters error")}
         return Movie(title: title, imdbID: imdbID, poster: poster, year: year)
     }
     
-    private static func MakeURL(parameters: [String:String]) -> URL {
+    private static func MakeURL(parameters: [String: String]) -> URL {
         var components = URLComponents(string: baseURL)!
         var queryItems = [URLQueryItem]()
         let baseParms = [schemeKey : schemeValue,

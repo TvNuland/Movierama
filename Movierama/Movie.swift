@@ -6,12 +6,13 @@
 //  Copyright © 2017 Ton van Nuland. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Movie {
     
     let title: String
     let poster: String
+    var posterImage: UIImage? = nil
     let imdbID: String
     let year: String
     
