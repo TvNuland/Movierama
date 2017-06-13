@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Pal-ai-1wn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="eS4-zu-y2W">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <scene sceneID="50h-3A-XWq">
             <objects>
                 <tableViewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="vMG-qk-ffL" customClass="TableViewController" customModule="Movierama" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="3w9-5H-WF0">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="3w9-5H-WF0" userLabel="OMDB Table View">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -29,13 +29,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8f6-I0-7cX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1104.8" y="-562.66866566716647"/>
+            <point key="canvasLocation" x="2044" y="-562.66866566716647"/>
         </scene>
         <!--Detail Table View Controller-->
         <scene sceneID="gqf-aN-M4M">
             <objects>
                 <tableViewController id="osi-tV-biK" userLabel="Detail Table View Controller" customClass="DetailTableViewController" customModule="Movierama" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="mCm-ED-ggG" userLabel="Detail Table View">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mCm-ED-ggG" userLabel="Detail Table View">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -47,12 +47,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZ1-bD-bCB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2006" y="-563"/>
+            <point key="canvasLocation" x="2944.8000000000002" y="-563.56821589205401"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Search-->
         <scene sceneID="Fxs-1K-GTv">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pal-ai-1wn" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" id="BjF-fu-NVd"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8tL-1c-bHZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -64,6 +65,43 @@
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MEY-Iv-Mp5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1104.8" y="-562.66866566716647"/>
+        </scene>
+        <!--Core Data Table View Controller-->
+        <scene sceneID="FJp-4U-lyt">
+            <objects>
+                <tableViewController id="qvg-LU-ROg" userLabel="Core Data Table View Controller" customClass="CoreDataTableViewController" customModule="Movierama" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="hSZ-Ub-SO7" userLabel="Core Data Table View">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="qvg-LU-ROg" id="UAl-fc-QO6"/>
+                            <outlet property="delegate" destination="qvg-LU-ROg" id="Iqe-7E-Pqx"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="CoreData" id="r2m-Zs-k8V"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yr0-Wj-oZq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1105" y="236"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="HYI-Hy-pFa">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="eS4-zu-y2W" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="FbL-1f-XZQ">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Pal-ai-1wn" kind="relationship" relationship="viewControllers" id="tSK-fw-dUC"/>
+                        <segue destination="qvg-LU-ROg" kind="relationship" relationship="viewControllers" id="VLf-Y6-dTI"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xSY-KN-0qQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="165.59999999999999" y="-562.66866566716647"/>
         </scene>

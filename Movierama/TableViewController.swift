@@ -15,10 +15,10 @@ class TableViewController: UITableViewController {
     
     //    var detailMovie: DetailMovie?
     
-    var store: MovieStore!
+//    var store: MovieStore!
     var movies: [Movie] = []
     var currentMovie: Movie!
-
+    
     
     //    {
     //        didSet {
@@ -27,7 +27,7 @@ class TableViewController: UITableViewController {
     //    }
     
     func searchMovies(forMovie: String) {
-        store.searchRequestedMovie(forMovie: forMovie) {
+        MovieStore.searchRequestedMovie(forMovie: forMovie) {
             (inner: () throws -> [Movie]) -> Void in
             do {
                 self.movies = try inner()
@@ -54,12 +54,11 @@ class TableViewController: UITableViewController {
                 movie.posterImage = #imageLiteral(resourceName: "No Poster")
                 self.tableView.reloadData()
             }
-            self.movies.append(movie)
         }
     }
     
     func loadImage(forMovie: Movie) {
-        store.loadRequestedImage(forPoster: forMovie.poster) {
+        MovieStore.loadRequestedImage(forPoster: forMovie.poster) {
             (image) -> Void in
             forMovie.posterImage = image
             self.tableView.reloadData()
@@ -175,11 +174,11 @@ class TableViewController: UITableViewController {
         }
     }
     
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        print("resign")
-//        textField.resignFirstResponder()
-//        return true
-//    }
+    //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    //        print("resign")
+    //        textField.resignFirstResponder()
+    //        return true
+    //    }
     
     /*
      override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -190,8 +189,8 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentMovie = movies[indexPath.row]
+        CoredataManager.sharedInstance.fillContext(movie: currentMovie)
+        CoredataManager.sharedInstance.saveContext()
         self.performSegue(withIdentifier: "detailTableView", sender: self)
     }
-
-    
 }

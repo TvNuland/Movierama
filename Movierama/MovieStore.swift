@@ -10,18 +10,18 @@ import UIKit
 
 class MovieStore {
     
-    private let session: URLSession = {
+    private static let session: URLSession = {
         let config = URLSessionConfiguration.default
         return URLSession(configuration: config)
     }()
     
-    private func processMoviesRequest(data: Data?) throws -> [Movie]  {
+    private static func processMoviesRequest(data: Data?) throws -> [Movie]  {
         guard let jsonData = data
             else {throw MovieError.jsonData(details: data?.description ?? "No Data")}
         return try OMDbAPI.movies(fromJSON: jsonData)
     }
 
-    func searchRequestedMovie(forMovie: String, completion: @escaping (_ inner: () throws -> [Movie]) -> Void) -> Void {
+    static func searchRequestedMovie(forMovie: String, completion: @escaping (_ inner: () throws -> [Movie]) -> Void) -> Void {
         let url = OMDbAPI.makeSearchURL(forMovie: forMovie)
         let request = URLRequest(url: url)
         let task = session.dataTask(with: request) {
@@ -50,7 +50,7 @@ class MovieStore {
 //        task.resume()
 //    }
 
-    private func processImageRequest(data: Data?) -> UIImage {
+    private static func processImageRequest(data: Data?) -> UIImage {
         if let posterData = data,
             let image = UIImage(data: posterData) {
             return image
@@ -60,7 +60,7 @@ class MovieStore {
         }
     }
     
-    func loadRequestedImage(forPoster: String, completion: @escaping (UIImage) -> Void) {
+    static func loadRequestedImage(forPoster: String, completion: @escaping (UIImage) -> Void) {
         if let url = URL(string: forPoster) {
             let request = URLRequest(url: url)
             let task = session.dataTask(with: request) {
