@@ -58,7 +58,7 @@ class CoredataManager {
     }
     
     func fillContext(movie: Movie) {
-        let context = CoredataManager.sharedInstance.persistentContainer.viewContext
+        let context = persistentContainer.viewContext
         context.performAndWait {
             let movieManagedObject = MovieCD(context: context)
             movieManagedObject.title = movie.title
@@ -67,5 +67,17 @@ class CoredataManager {
             movieManagedObject.imdbID = movie.imdbID
             movieManagedObject.year = movie.year
         }
+    }
+    
+//    func deleteFromContext(movies: [MovieCD], row: Int) {
+//        let context = persistentContainer.viewContext
+//        let movie = movies[row]
+//        context.delete(movie)
+//    }
+    
+    func deleteFromContext(movies: [MovieCD], row: Int) {
+        let context = persistentContainer.viewContext
+        let movie = movies[row]
+        context.delete(movie)
     }
 }

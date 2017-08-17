@@ -12,6 +12,7 @@ class CoreDataTableViewController: UITableViewController {
     
     var theMovie: Movie?
     var movies: [Movie] = []
+    var moviesCD: [MovieCD] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,8 @@ class CoreDataTableViewController: UITableViewController {
         self.tableView.register(nib, forCellReuseIdentifier: "MovieTableViewCell")
         
         CoreDataService.fetchFavouritedMovies { (movieArray, result, error) in
-            for movieCD in movieArray! {
+            self.moviesCD = movieArray!
+            for movieCD in self.moviesCD {
                 self.theMovie = Movie.init(title: movieCD.title!, imdbID: movieCD.imdbID!, poster: movieCD.poster!, year: movieCD.year!)
                 self.theMovie!.posterImage = movieCD.posterimage as? UIImage
                 self.movies.append(self.theMovie!)
@@ -59,6 +61,16 @@ class CoreDataTableViewController: UITableViewController {
         return cell
     }
     
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            CoredataManager.sharedInstance.deleteFromContext(movies: moviesCD, row: indexPath.row)
+            CoredataManager.sharedInstance.saveContext()
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+
     /*
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
